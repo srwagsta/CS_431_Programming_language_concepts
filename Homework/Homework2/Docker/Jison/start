@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd /Solutions/
+
+jison hwk2_solution.jison
+node hwk2_solution.js hw2_test.txt > /Solutions/Output/Jison_Output.txt
+rm ./hwk2_solution.js

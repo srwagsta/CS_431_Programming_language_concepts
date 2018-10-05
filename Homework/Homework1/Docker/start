@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# pandoc /Solutions/$(somescript to go through the files).md -s -o /PDF_Output/$(some scrip to name the output files).pdf
+
+
+pandoc $(find /Solutions/ -name '*.md' -exec bash -c 'printf "%s\n" "${@%}"' _ {} +) -s -o $(printf "/PDF_Output/$(find /Solutions -type f -iname "*.md" -exec basename {} .md ';')_solution.pdf")
+
+# Just the filename --> find /Solutions -type f -iname "*.md" -exec basename {} .md ';'

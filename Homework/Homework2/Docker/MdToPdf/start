@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# pandoc /Solutions/$(somescript to go through the files).md -s -o /PDF_Output/$(some scrip to name the output files).pdf
+
+
+pandoc --latex-engine=xelatex -V geometry:margin=.5in $(find /Solutions/ -name '*.md' -exec bash -c 'printf "%s\n" "${@%}"' _ {} +) -s -o $(printf "/Solutions/Output/$(find /Solutions -type f -iname "*.md" -exec basename {} .md ';').pdf")
+
+# Just the filename --> find /Solutions -type f -iname "*.md" -exec basename {} .md ';'

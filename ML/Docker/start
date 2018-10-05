@@ -1,0 +1,8 @@
+#!/bin/bash
+
+shopt -s extglob
+
+for file in /Ml_Files/*.sml
+do
+  sml "$file" > /Ml_Files/Output/"${file//+(*\/|.*)}"_output.txt
+done

@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  jison:
+    build:
+      context: .
+      dockerfile: ./Jison/Dockerfile
+    image: jison
+    container_name: jison
+    networks:
+      - primary
+    volumes:
+      - ../Solutions:/Solutions
+    command: /start
+  MarkdownToPdfBuilder:
+    build:
+      context: .
+      dockerfile: ./MdToPdf/Dockerfile
+    image: md-to-pdf
+    container_name: md-to-pdf
+    networks:
+      - primary
+    volumes:
+      - ../Solutions:/Solutions
+    command: /start
+
+networks:
+  primary:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
