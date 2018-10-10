@@ -1,0 +1,17 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homework4.sml]
+val zip = fn : 'a list * 'b list -> ('a * 'b) list
+val it = [(1,4),(2,5)] : (int * int) list
+val unzip = fn : ('a * 'b) list -> 'a list * 'b list
+val it = ([1,3,5],[2,4,6]) : int list * int list
+val zip3 = fn : 'a list * 'b list * 'c list -> ('a * 'b * 'c) list
+val it = [(1,4,6),(2,5,7)] : (int * int * int) list
+val unzip3 = fn : ('a * 'b * 'c) list -> 'a list * 'b list * 'c list
+val it = ([1,4,7],[2,5,8],[3,6,9]) : int list * int list * int list
+val zipWithIndex = fn : 'a list -> (int * 'a) list
+val it = [(0,"a"),(1,"b"),(2,"c")] : (int * string) list
+val flatten = fn : 'a list list -> 'a list
+val it = [1,2,3,4,5,6] : int list
+val flatten2 = fn : ('a * 'a) list -> 'a list
+val it = [1,2,3,4,5,6] : int list
+- 
