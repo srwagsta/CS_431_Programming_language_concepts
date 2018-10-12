@@ -1,0 +1,9 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homework5.sml]
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+val merge_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
+val it = [11,9,5,1,0,~4] : int list
+- 
