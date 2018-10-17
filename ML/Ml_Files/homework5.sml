@@ -25,19 +25,20 @@ merge_sort (op >) [0, 5, 1, ~4, 9, 11];
 
 (* Question 2 *)
 fun selection_sort _ nil = nil
-  | selection_sort _ (x::nil) = x::nil
-  | selection_sort f (first::last) =
+  | selection_sort f list = 
     let
-      fun select_r small ([], output) = small::(selection_sort f output)
-      |   select_r small (x::xs, output) =
-            if (f(x, small)) then
-              select_r x (xs, small::output)
-            else
-              select_r small (xs, x::output)
-    in
-      select_r first (last, [])
+      fun select nil = nil
+        | select (x::nil) = x::nil
+        | select (a::b::c) = 
+          let
+            val (e::rest) = select(b::c)
+          in
+            if(f(e,a)) then select(e::a::rest) else a::e::rest
+          end;
+    in 
+      select list
     end;
 
-selection_sort (op >) [0, 5, 1, ~4, 9, 11]
+selection_sort (op >) [0, 5, 1, ~4, 9, 11];
 
 (* Question 3 *)
