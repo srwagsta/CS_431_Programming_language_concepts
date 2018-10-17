@@ -86,7 +86,20 @@ Homework 5: High Order ML Functions
     You should implement two helper functions as inner functions. The first function `insert:’a list * ’a -> ’a list` takes a sorted list `l` and an element `x` and insert `x` into the right position of `l` so that the list remains sorted after insertion. For example, `insert ([5,1,0,~4], 9)` should evaluates to `[9,5,1,0,~4]`. Again the order depends on the comparision function passed to `insertion_sort`. The second helper function `sort:’a list * ’a list -> ’a` list takes a sorted list `sofar` and an unsorted list `l` and inserts the elements of `l` into `sofar`.
 
     ```sml
-    fun
+    fun insertion_sort _ nil = nil
+      | insertion_sort f list =
+        let
+          fun insert x nil = [x]
+            | insert x (head::rest) =
+              if f(x,head)
+              then x::head::rest
+              else head::(insert x rest)
+          fun sort sofar nil = sofar
+            | sort sofar (element::list) =
+              insert element (sort sofar list)  
+        in
+          sort nil list
+        end;
     ```
 
 4. Write a function `quicksort: (int * int -> bool) -> int list -> int list` that takes a comparison function (i.e. either `op >` or `op <`), then a list of integers, and return a sorted list of integers in the order specified by the comparison function.
