@@ -8,4 +8,6 @@ val merge_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
 val it = [11,9,5,1,0,~4] : int list
 val selection_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
 val it = [11,9,5,1,0,~4] : int list
+val insertion_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
+val it = [11,9,5,1,0,~4] : int list
 - 

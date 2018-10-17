@@ -44,3 +44,21 @@ fun selection_sort _ nil = nil
 selection_sort (op >) [0, 5, 1, ~4, 9, 11];
 
 (* Question 3 *)
+fun insertion_sort _ nil = nil
+  |	insertion_sort f list = 
+  let 
+    fun insert x nil = [x]
+      |	insert x (head::rest) = 
+        if f(x,head)
+        then x::head::rest
+        else head::(insert x rest)
+    fun sort sofar nil = sofar
+      | sort sofar (element::list) = 
+        insert element (sort sofar list)  
+  in
+    sort nil list
+  end;
+
+  insertion_sort (op >) [0, 5, 1, ~4, 9, 11];
+
+  (* Question 4 *)
