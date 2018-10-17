@@ -52,7 +52,22 @@ Homework 5: High Order ML Functions
     You should implement a helper function `select: ’a list -> ’a list` as an inner function to selection_sort. The select function takes a list and returns the list with the least element in front. For example, `select [0,5,1,~4,9,11]` should return `[11,0,5,1,~4,9]` given the ordering function `op >`.
 
     ```sml
-    fun
+    fun selection_sort _ nil = nil
+      | selection_sort f list =
+    let
+      fun select nil = nil
+        | select [x] = [x]
+        | select (firstElement::list) =
+          let
+            val (testElement::remaining) = select(list)
+          in
+            if(f(testElement,firstElement))
+            then select(testElement::firstElement::remaining)
+            else firstElement::testElement::remaining
+          end;
+    in
+      select list
+    end;
     ```
 
 3. Write a function `insertion_sort: (’a * ’a -> bool) -> ’a list -> ’a list` that takes a comparison function and then a list, and return a sorted list in the order specified by the comparison function. Insertion sort orders a list from left to right by inserting an element from unsorted portion of the list into the correct position in the sorted portion of the list.

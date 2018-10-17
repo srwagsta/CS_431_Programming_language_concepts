@@ -28,12 +28,14 @@ fun selection_sort _ nil = nil
   | selection_sort f list = 
     let
       fun select nil = nil
-        | select (x::nil) = x::nil
-        | select (a::b::c) = 
+        | select [x] = [x]
+        | select (firstElement::list) = 
           let
-            val (e::rest) = select(b::c)
+            val (testElement::remaining) = select(list)
           in
-            if(f(e,a)) then select(e::a::rest) else a::e::rest
+            if(f(testElement,firstElement)) 
+            then select(testElement::firstElement::remaining) 
+            else firstElement::testElement::remaining
           end;
     in 
       select list
