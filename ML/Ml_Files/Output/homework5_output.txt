@@ -10,30 +10,8 @@ val selection_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
 val it = [11,9,5,1,0,~4] : int list
 val insertion_sort = fn : ('a * 'a -> bool) -> 'a list -> 'a list
 val it = [11,9,5,1,0,~4] : int list
-/Ml_Files/homework5.sml:87.9-87.38 Error: pattern and expression in val dec don't agree [tycon mismatch]
-  pattern:    'Z * 'Y
-  expression:    [+ ty] list * [+ ty] list * [+ ty] list
-  in declaration:
-    (lower,upper) = split rest
-/Ml_Files/homework5.sml:65.5-90.6 Error: case object and rules don't agree [tycon mismatch]
-  rule domain: ([+ ty] * [+ ty] -> bool) * [+ ty] list
-  object: ('Z * ([+ ty] * [+ ty] -> bool)) * 'Y
-  in expression:
-    (case (arg,arg)
-      of (_,nil) => nil
-       | (_,x :: nil) => x :: nil
-       | (f,rest) =>
-           let val <pat> = <exp>
-               
-               val <pat> = <exp>
-               
-               val <pat> = <exp>
-               
-               val <pat> = <exp>
-           in quicksort <exp> @ <exp> :: <exp>
-           end)
-/Ml_Files/homework5.sml:65.5-90.6 Error: right-hand-side of clause doesn't agree with function result type [tycon mismatch]
-  expression:  'Z -> _
-  result type:  [+ ty] list
-  in declaration:
-    quicksort = (fn arg => (fn <pat> => <exp>))
+/Ml_Files/homework5.sml:69.9-70.50 Warning: match nonexhaustive
+          (head :: _,1) => ...
+          (_ :: rest,index) => ...
+  
+val quicksort = fn : (int * int -> bool) * int list -> int list

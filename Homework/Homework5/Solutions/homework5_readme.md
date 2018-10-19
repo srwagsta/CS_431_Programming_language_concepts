@@ -113,5 +113,29 @@ Homework 5: High Order ML Functions
     - (e) Note that you place the middle list between the sorted lower and upper list.
 
     ```sml
-    fun quicksort
+    fun quicksort (_, nil) = nil
+      | quicksort (_, [x]) = [x]
+      | quicksort (f, rest) =
+      let
+        fun get (head::_, 1) = head
+          | get (_::rest, index) = get(rest, index-1);
+
+        val pivot = (get(rest, 1) + get(rest,(length rest + 1) div 2) + get(rest, length rest) div 3)
+
+        fun split nil = ( nil, nil, nil )
+          | split (x :: remaining) =
+          let
+            val ( lower, middle, upper ) = split remaining
+          in
+            if f( pivot, x )
+            then ( lower, middle, x::upper )
+            else 
+              if x = pivot
+              then (lower, x::middle, upper)
+              else (x::lower, middle, upper )
+          end;
+        val ( lower, middle, upper ) = split rest
+      in
+        quicksort(f, lower) @ middle @ quicksort(f, upper)
+      end ;
     ```
