@@ -64,12 +64,12 @@ insertion_sort (op >) [0, 5, 1, ~4, 9, 11];
 (* Question 4 *)
 fun quicksort (_, nil) = nil
   | quicksort (_, [x]) = [x]
-  | quicksort (f, rest) =
+  | quicksort (f, list) =
   let
     fun get (head::_, 1) = head
       | get (_::rest, index) = get(rest, index-1);
 
-    val pivot = (get(rest, 1) + get(rest,(length rest + 1) div 2) + get(rest, length rest) div 3)
+    val pivot = (get(list, 1) + get(list,(length list + 1) div 2) + get(list, length list) div 3)
 
     fun split nil = ( nil, nil, nil )
       | split (x :: remaining) =
@@ -83,7 +83,7 @@ fun quicksort (_, nil) = nil
           then (lower, x::middle, upper)
           else (x::lower, middle, upper )
       end;
-    val ( lower, middle, upper ) = split rest
+    val ( lower, middle, upper ) = split list
   in
     quicksort(f, lower) @ middle @ quicksort(f, upper)
   end ;

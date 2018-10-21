@@ -1,0 +1,12 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homework6.sml]
+val zip = fn : 'a list * 'b list -> ('a * 'b) list
+val reduce = fn : ('a * 'a -> 'a) -> 'a list -> 'a
+val it = 2 : int
+val vectorAdd = fn : int list * int list -> int list
+val it = [5,7,9] : int list
+val svProduct = fn : int * int list -> int list
+val it = [2,4,6] : int list
+val vmProduct = fn : int list * int list list -> int list
+val it = [10,4] : int list
+- 
