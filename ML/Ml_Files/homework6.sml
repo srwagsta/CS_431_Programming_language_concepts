@@ -5,10 +5,9 @@ fun zip (nil, _) = nil
 (* Question 1 *)
 fun reduce _ nil = raise Fail "Empty list passed."
   | reduce _ (first::nil) = first
-  | reduce f (first::second::rest) = f(reduce f rest, first);
+  | reduce f (first::rest) = f(first, reduce f rest);
 
 reduce(op -) [1,2,3];
-
 
 (* Question 2 *)
 fun vectorAdd(nil, nil) = nil
@@ -26,6 +25,11 @@ svProduct(2, [1,2,3]);
 
 (* Question 4 *)
 fun vmProduct(rowVector, matrix) = 
-  reduce vectorAdd (map (fn (x, list) => svProduct(x, list)) (zip(rowVector, matrix)));
-(* TODO: Finish out this function, it has a logical error *)
+  reduce vectorAdd  (map (fn (x, list) => svProduct(x, list)) (zip(rowVector, matrix)));
+
 vmProduct([1,2,3], [[1,1], [2,1], [3,1]]);
+
+(* Question 5 *)
+fun matrixProduct TODO;
+
+matrixProduct([ [1, 2, 3], [1, 1, 1] ], [ [1, 1], [2, 1], [3, 1] ]);

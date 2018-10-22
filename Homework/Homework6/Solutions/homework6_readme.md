@@ -12,7 +12,7 @@ Homework 6: High Order ML Functions
    ```sml
    fun reduce _ nil = raise Fail "Empty list passed."
      | reduce _ (first::nil) = first
-     | reduce f (first::second::rest) = f(reduce f rest, first);
+     | reduce f (first::rest) = f(first, reduce f rest);
    ```
 
 ---
@@ -55,7 +55,7 @@ Homework 6: High Order ML Functions
 
     ```sml
     fun vmProduct(rowVector, matrix) =
-      reduce vectorAdd (map (fn (x, list) => svProduct(x, list)) (zip(rowVector, matrix)));
+      reduce vectorAdd  (map (fn (x, list) => svProduct(x, list)) (zip(rowVector, matrix)));
     ```
 
 5. Write a function `matrixProduct` that multiple a `m×n` matrix with a `n×k` matrix to obtain a `m×k` matrix.

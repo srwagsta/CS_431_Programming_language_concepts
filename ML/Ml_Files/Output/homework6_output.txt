@@ -8,5 +8,5 @@ val it = [5,7,9] : int list
 val svProduct = fn : int * int list -> int list
 val it = [2,4,6] : int list
 val vmProduct = fn : int list * int list list -> int list
-/Ml_Files/homework6.sml:30.1-31.1 Error: unclosed comment
+val it = [14,6] : int list
 - 
