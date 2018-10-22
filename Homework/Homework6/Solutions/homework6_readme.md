@@ -9,11 +9,11 @@ Homework 6: High Order ML Functions
 
 1. Write a function `reduce: (’a * ’a -> ’a) -> a’ list -> ’a list` that behaves like `foldl` except that it takes the first element of the list as the initial value. For example, `reduce (op -) [1,2,3]` evaluates to `3 - (2 - 1) = 2`. This method does not apply to empty list.
 
-   ```sml
-   fun reduce _ nil = raise Fail "Empty list passed."
-     | reduce _ (first::nil) = first
-     | reduce f (first::rest) = f(first, reduce f rest);
-   ```
+    ```sml
+    fun reduce _ nil = raise Fail "Empty list passed."
+      | reduce _ (first::nil) = first
+      | reduce f (first::rest) = f(first, reduce f rest);
+    ```
 
 ---
 
@@ -64,7 +64,7 @@ Homework 6: High Order ML Functions
     ```none
        1    2    3   1    1
        1    1    1 x 2    1 = v1 = 14 6
-                     3    1   v2   6  3
+                     3    1   v2 = 6  3
 
         where
                          1    1
@@ -81,5 +81,6 @@ Homework 6: High Order ML Functions
     This problem will use the function `vmProduct` defined previously.
 
     ```sml
-    fun matrixProduct TODO
+    fun matrixProduct(matrix1, matrix2) = 
+      map (fn row => vmProduct(row, matrix2)) matrix1;
     ```

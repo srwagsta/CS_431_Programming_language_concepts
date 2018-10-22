@@ -30,6 +30,7 @@ fun vmProduct(rowVector, matrix) =
 vmProduct([1,2,3], [[1,1], [2,1], [3,1]]);
 
 (* Question 5 *)
-fun matrixProduct TODO;
+fun matrixProduct(matrix1, matrix2) = 
+  map (fn row => vmProduct(row, matrix2)) matrix1;
 
 matrixProduct([ [1, 2, 3], [1, 1, 1] ], [ [1, 1], [2, 1], [3, 1] ]);

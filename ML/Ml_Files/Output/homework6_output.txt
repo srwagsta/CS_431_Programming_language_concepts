@@ -9,4 +9,6 @@ val svProduct = fn : int * int list -> int list
 val it = [2,4,6] : int list
 val vmProduct = fn : int list * int list list -> int list
 val it = [14,6] : int list
+val matrixProduct = fn : int list list * int list list -> int list list
+val it = [[14,6],[6,3]] : int list list
 - 
