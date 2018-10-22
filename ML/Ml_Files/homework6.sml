@@ -27,5 +27,5 @@ svProduct(2, [1,2,3]);
 (* Question 4 *)
 fun vmProduct(rowVector, matrix) = 
   reduce vectorAdd (map (fn (x, list) => svProduct(x, list)) (zip(rowVector, matrix)));
-(* TODO: Finish out this function, it has a logical error *s)
+(* TODO: Finish out this function, it has a logical error *)
 vmProduct([1,2,3], [[1,1], [2,1], [3,1]]);
