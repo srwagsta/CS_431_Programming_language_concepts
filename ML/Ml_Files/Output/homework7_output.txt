@@ -1,0 +1,3 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homework7.sml]
+/Ml_Files/homework7.sml:1.11-1.16 Error: syntax error: deleting  ID ID

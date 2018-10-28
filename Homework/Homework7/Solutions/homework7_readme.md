@@ -10,9 +10,9 @@ Homework 7: Algebraic Datatypes (Binary tree)
 The following questions use the following datatype definition.
 
 ```SML
-datatype ’data tree =
+datatype `data tree =
     Empty |
-    Node of ’data tree * ’data * ’data tree;
+    Node of `data tree * `data * `data tree;
 ```
 
 ---
