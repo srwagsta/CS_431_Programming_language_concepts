@@ -10,9 +10,9 @@ Homework 7: Algebraic Datatypes (Binary tree)
 The following questions use the following datatype definition.
 
 ```SML
-datatype `data tree =
+datatype 'data tree =
     Empty |
-    Node of `data tree * `data * `data tree;
+    Node of 'data tree * 'data * 'data tree;
 ```
 
 ---
@@ -20,7 +20,10 @@ datatype `data tree =
 1. A full binary tree is one in which every `Node` has either two `Empty` children or two `Node` children but not one of each. Write a function `isFull` of type `’a tree -> bool` that tests whether a tree is full or not. `Empty` tree is full.
 
     ```SML
-    fun isFull
+    fun isFull Empty = true
+      | isFull (Node(Empty, _, Node _)) = false
+      | isFull (Node(Node _, _, Empty)) = false
+      | isFull (Node(leftTree, _, rightTree)) = (isFull leftTree) andalso (isFull rightTree);
     ```
 
 2. Write a function `makeBST` of type `’a list -> (’a * ’a -> bool) -> ’a tree` that organizes the items in a list into a *binary search tree*.   The tree needs not to be balanced and you may assume that no items in the list is repeated. The 2nd parameter of `makeBST` is a comparison function that compares two items and determine whether the first one is less than the second one or not. A binary search tree is either empty or it has two  subtrees and a data item `x`, where the items in the left subtree are all smaller than  `x`, the items in the right subtree are greater than `x`, and the two subtrees are binary search tree as well.
