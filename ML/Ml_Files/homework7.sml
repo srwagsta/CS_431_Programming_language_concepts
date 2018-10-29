@@ -8,3 +8,4 @@ fun isFull Empty = true
   | isFull (Node(Node _, _, Empty)) = false
   | isFull (Node(leftTree, _, rightTree)) = (isFull leftTree) andalso (isFull rightTree);
 
+(* Question 2*)
