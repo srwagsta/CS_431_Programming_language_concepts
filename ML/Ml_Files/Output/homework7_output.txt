@@ -26,7 +26,7 @@ datatype 'a tree = Empty | Node of 'a tree * 'a * 'a tree
 val isFull = fn : 'a tree -> bool
 val makeBST = fn : 'a list -> ('a * 'a -> bool) -> 'a tree
 val it = Node (Node (Empty,1,Empty),2,Node (Empty,3,Empty)) : int tree
-/Ml_Files/homework7.sml:31.14 Warning: calling polyEqual
+/Ml_Files/homework7.sml:32.14 Warning: calling polyEqual
 val searchBST = fn : ''a tree -> (''a * ''a -> bool) -> ''a -> bool
 val t = Node (Node (Empty,4,Empty),5,Node (Empty,6,Empty)) : int tree
 val it = true : bool

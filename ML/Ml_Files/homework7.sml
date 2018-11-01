@@ -1,3 +1,4 @@
+(* Added this for more expressive output while testing the makeBST function *)
 Control.Print.printDepth := 1024;
 
 datatype 'data tree =
