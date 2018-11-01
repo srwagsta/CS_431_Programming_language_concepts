@@ -53,17 +53,24 @@ datatype 'data tree =
 3. Write a function `searchBST` of `type’’a tree -> (’’a * ’’a -> bool) -> ’’a -> bool` that searches a binary search tree for a given data element and returns `true` if it is found and `false` otherwise. Your solution should only search subtrees that may contain the element you are looking for. If we apply the function in the following way `searchBST tree f e`, then `searchBST` should first compare with the tree data `d` using `=` to see if `e` and`d` are equal. If they are equal, then return  `true`. Otherwises, `searchBST` should check if `f(e, d)` is `true` or `false`, if `true`, then search the left subtree and if `false`, it should search the right subtree.
    For  example, in  the  following  program,  the  variable `isFound` should be `true`.
 
-   ```SML
-   val t = Node( Node( Empty, 4, Empty ),5,Node( Empty, 6, Empty ));
-   - searchBST t (op <) 4;
-   val it = true : bool
-   val t2 = makeBST [3, 6, 2, 1, 4] (op <);
-   - searchBST t2 (op <) 2;
-   val it = true : bool
-   - searchBST t2 (op <) 5;
-   val it = false : bool2
-   ```
+    ```SML
+    val t = Node( Node( Empty, 4, Empty ),5,Node( Empty, 6, Empty ));
+    - searchBST t (op <) 4;
+    val it = true : bool
+    val t2 = makeBST [3, 6, 2, 1, 4] (op <);
+    - searchBST t2 (op <) 2;
+    val it = true : bool
+    - searchBST t2 (op <) 5;
+    val it = false : bool
+    ```
 
-   ```SML
-   fun searchBST
-   ```
+    ```SML
+    fun searchBST Empty _ _ = false
+      | searchBST (Node(left, current, right)) comparisonFunction element =
+      if current = element
+      then true
+      else
+        if comparisonFunction(element, current)
+        then searchBST left comparisonFunction element
+        else searchBST right comparisonFunction element;
+    ```
