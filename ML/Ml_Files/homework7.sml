@@ -1,3 +1,5 @@
+Control.Print.printDepth := 1024;
+
 datatype 'data tree =
     Empty
   | Node of 'data tree * 'data * 'data tree;
@@ -10,10 +12,17 @@ fun isFull Empty = true
 
 (* Question 2*)
 fun makeBST nil _ = Empty
-  | makeBST [x] _ = Node(Empty, x, Empty)
-  | makeBST (x::y::list) comparisonFunction = 
-    if (comparisonFunction(x,y))
-    then Node((makeBST [y] comparisonFunction), x, (makeBST (list) comparisonFunction))
-    else Node((makeBST (list) comparisonFunction), x, (makeBST [y] comparisonFunction));
+  | makeBST (currentElement::list) comparisonFunction =
+  let
+    fun insert element Empty = Node (Empty, element, Empty)
+      | insert element (Node(left, current, right)) = 
+          if comparisonFunction(element, current)
+          then Node((insert element left), current, right)
+          else Node(left, current, (insert element right))
+  in
+    insert currentElement (makeBST list comparisonFunction)
+  end;
 
-makeBST [1,2,3,4,5] (op <);
+makeBST [1,3,2] (op <);
+
+(* Question 3 *)

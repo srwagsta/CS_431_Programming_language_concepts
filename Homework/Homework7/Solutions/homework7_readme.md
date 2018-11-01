@@ -37,7 +37,17 @@ datatype 'data tree =
     *Note that depending on your implementation, the shape of the tree may look different though it should contain the same elements.*
 
     ```SML
-    fun makeBST
+    fun makeBST nil _ = Empty
+      | makeBST (currentElement::list) comparisonFunction =
+      let
+        fun insert element Empty = Node (Empty, element, Empty)
+          | insert element (Node(left, current, right)) = 
+          if comparisonFunction(element, current)
+          then Node((insert element left), current, right)
+          else Node(left, current, (insert element right))
+      in
+        insert currentElement (makeBST list comparisonFunction)
+      end;
     ```
 
 3. Write a function `searchBST` of `type’’a tree -> (’’a * ’’a -> bool) -> ’’a -> bool` that searches a binary search tree for a given data element and returns `true` if it is found and `false` otherwise. Your solution should only search subtrees that may contain the element you are looking for. If we apply the function in the following way `searchBST tree f e`, then `searchBST` should first compare with the tree data `d` using `=` to see if `e` and`d` are equal. If they are equal, then return  `true`. Otherwises, `searchBST` should check if `f(e, d)` is `true` or `false`, if `true`, then search the left subtree and if `false`, it should search the right subtree.
