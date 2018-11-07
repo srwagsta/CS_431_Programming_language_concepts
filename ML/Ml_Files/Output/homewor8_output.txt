@@ -1,0 +1,14 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homewor8.sml]
+datatype exp
+  = Const of int
+  | Plus of exp * exp
+  | Pow of exp * int
+  | Times of exp * exp
+  | Var of string
+/Ml_Files/homewor8.sml:17.12 Warning: calling polyEqual
+/Ml_Files/homewor8.sml:21.12 Warning: calling polyEqual
+val lookup = fn : (''a * 'b) list -> ''a -> 'b
+val pow = fn : int * int -> int
+val it = 16 : int
+- 
