@@ -6,9 +6,18 @@ datatype exp
   | Pow of exp * int
   | Times of exp * exp
   | Var of string
-/Ml_Files/homewor8.sml:17.12 Warning: calling polyEqual
-/Ml_Files/homewor8.sml:21.12 Warning: calling polyEqual
-val lookup = fn : (''a * 'b) list -> ''a -> 'b
-val pow = fn : int * int -> int
+/Ml_Files/homewor8.sml:12.20 Warning: calling polyEqual
+/Ml_Files/homewor8.sml:16.20 Warning: calling polyEqual
+val eval = fn : exp -> (string * int) list -> int
+val e = Times (Times (Var #,Var #),Plus (Var #,Const #)) : exp
+val it = 30 : int
+val e1 = Pow (Var "x",4) : exp
 val it = 16 : int
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+val print = fn : exp -> string
+val it = "((x * y) * (x + 3))" : string
+val it = "(x^4)" : string
 - 
