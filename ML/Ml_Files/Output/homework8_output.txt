@@ -15,6 +15,8 @@ val eval = fn : exp -> (string * int) list -> int
 [autoloading done]
 val print = fn : exp -> string
 val deriv = fn : exp -> string -> exp
+val simp = fn : exp -> exp
+val simplify = fn : exp -> exp
 [autoloading]
 [library $smlnj/compiler/current.cm is stable]
 [library $smlnj/compiler/x86.cm is stable]
@@ -37,10 +39,15 @@ val deriv = fn : exp -> string -> exp
 val it = () : unit
 val e = Times (Times (Var "x",Var "y"),Plus (Var "x",Const 3)) : exp
 val e1 = Pow (Var "x",4) : exp
+val e2 = Pow (Plus (Var "x",Const 0),2) : exp
 val it = 30 : int
 val it = 16 : int
 val it = "((x * y) * (x + 3))" : string
 val it = "(x^4)" : string
 val it = "((((1 * y) + (x * 0)) * (x + 3)) + ((x * y) * (1 + 0)))" : string
 val it = "((4 * (x^3)) * 1)" : string
+val it = "((x + 0)^2)" : string
+val it = "((y * (x + 3)) + (x * y))" : string
+val it = "(4 * (x^3))" : string
+val it = "(x^2)" : string
 - 

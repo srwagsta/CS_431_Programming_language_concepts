@@ -52,6 +52,23 @@ fun deriv (Const _) _ = Const 0
   | deriv (Pow (exp1, int)) dx = Times(Times(Const int, Pow(exp1, int-1)), (deriv exp1 dx));
 
 
+(* Question 4 *)
+fun simp (Times(Const 1, x)) = x
+  | simp (Times(x, Const 1)) = x
+  | simp (Times(Const 0, _)) = Const 0
+  | simp (Times(_, Const 0)) = Const 0
+  | simp (Plus(Const 0, x)) = x
+  | simp (Plus(x, Const 0)) = x
+  | simp (Pow(x, 1)) = x
+  | simp (Pow(_, 0)) = Const 1
+  | simp exp = exp;
+
+fun simplify (Const x) = Const x
+  | simplify (Var x) = Var x
+  | simplify (Times(exp1, exp2)) = simp(Times((simplify (simp exp1)), (simplify(simp exp2))))
+  | simplify (Plus(exp1, exp2)) = simp(Plus((simplify (simp exp1)), (simplify(simp exp2))))
+  | simplify (Pow(exp, int)) = simp(Pow(simplify(simp exp),int));
+
 
 (* Tests *) 
 (* Added for more expressive output while testing the makeBST function *)
@@ -59,6 +76,7 @@ Control.Print.printDepth := 1024;
 (* Setup *)
 val e = Times (Times (Var "x", Var "y"), Plus (Var "x", Const 3));
 val e1 = Pow (Var "x", 4);
+val e2 = Pow (Plus (Var "x", Const 0), 2);
 
 (* Question 1 *)
 eval e [("x", 2), ("y", 3)];
@@ -71,3 +89,9 @@ print e1;
 (* Question 3 *)
 print (deriv e "x");
 print (deriv e1 "x");
+print e2;
+
+(* Question 4 *)
+print (simplify (deriv e "x"));
+print (simplify (deriv e1 "x"));
+print (simplify e2);
