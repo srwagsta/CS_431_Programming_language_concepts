@@ -1,0 +1,46 @@
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+[opening /Ml_Files/homework8.sml]
+datatype exp
+  = Const of int
+  | Plus of exp * exp
+  | Pow of exp * int
+  | Times of exp * exp
+  | Var of string
+/Ml_Files/homework8.sml:12.20 Warning: calling polyEqual
+/Ml_Files/homework8.sml:16.20 Warning: calling polyEqual
+val eval = fn : exp -> (string * int) list -> int
+[autoloading]
+[library $SMLNJ-BASIS/basis.cm is stable]
+[library $SMLNJ-BASIS/(basis.cm):basis-common.cm is stable]
+[autoloading done]
+val print = fn : exp -> string
+val deriv = fn : exp -> string -> exp
+[autoloading]
+[library $smlnj/compiler/current.cm is stable]
+[library $smlnj/compiler/x86.cm is stable]
+[library $smlnj/viscomp/core.cm is stable]
+[library $smlnj/viscomp/basics.cm is stable]
+[library $smlnj/viscomp/elabdata.cm is stable]
+[library $smlnj/viscomp/elaborate.cm is stable]
+[library $smlnj/MLRISC/Lib.cm is stable]
+[library $SMLNJ-MLRISC/Lib.cm is stable]
+[library $smlnj/smlnj-lib/pp-lib.cm is stable]
+[library $SMLNJ-LIB/PP/pp-lib.cm is stable]
+[library $html-lib.cm(=$SMLNJ-LIB/HTML)/html-lib.cm is stable]
+[library $smlnj-lib.cm(=$SMLNJ-LIB/Util)/smlnj-lib.cm is stable]
+[library $smlnj/viscomp/debugprof.cm is stable]
+[library $smlnj/MLRISC/Control.cm is stable]
+[library $SMLNJ-MLRISC/Control.cm is stable]
+[library $controls-lib.cm(=$SMLNJ-LIB/Controls)/controls-lib.cm is stable]
+[library $smlnj/smlnj-lib/controls-lib.cm is stable]
+[autoloading done]
+val it = () : unit
+val e = Times (Times (Var "x",Var "y"),Plus (Var "x",Const 3)) : exp
+val e1 = Pow (Var "x",4) : exp
+val it = 30 : int
+val it = 16 : int
+val it = "((x * y) * (x + 3))" : string
+val it = "(x^4)" : string
+val it = "((((1 * y) + (x * 0)) * (x + 3)) + ((x * y) * (1 + 0)))" : string
+val it = "((4 * (x^3)) * 1)" : string
+- 
