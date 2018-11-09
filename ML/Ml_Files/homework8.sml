@@ -53,21 +53,26 @@ fun deriv (Const _) _ = Const 0
 
 
 (* Question 4 *)
-fun simp (Times(Const 1, x)) = x
-  | simp (Times(x, Const 1)) = x
-  | simp (Times(Const 0, _)) = Const 0
-  | simp (Times(_, Const 0)) = Const 0
-  | simp (Plus(Const 0, x)) = x
-  | simp (Plus(x, Const 0)) = x
-  | simp (Pow(x, 1)) = x
-  | simp (Pow(_, 0)) = Const 1
-  | simp exp = exp;
+fun simplify expression =
+  let
+    fun attemptRootSimplifcation (Times(Const 1, x)) = x
+      | attemptRootSimplifcation (Times(x, Const 1)) = x
+      | attemptRootSimplifcation (Times(Const 0, _)) = Const 0
+      | attemptRootSimplifcation (Times(_, Const 0)) = Const 0
+      | attemptRootSimplifcation (Plus(Const 0, x)) = x
+      | attemptRootSimplifcation (Plus(x, Const 0)) = x
+      | attemptRootSimplifcation (Pow(x, 1)) = x
+      | attemptRootSimplifcation (Pow(_, 0)) = Const 1
+      | attemptRootSimplifcation exp = exp;
 
-fun simplify (Const x) = Const x
-  | simplify (Var x) = Var x
-  | simplify (Times(exp1, exp2)) = simp(Times((simplify (simp exp1)), (simplify(simp exp2))))
-  | simplify (Plus(exp1, exp2)) = simp(Plus((simplify (simp exp1)), (simplify(simp exp2))))
-  | simplify (Pow(exp, int)) = simp(Pow(simplify(simp exp),int));
+    fun doSimplification (Const x) = Const x
+      | doSimplification (Var x) = Var x
+      | doSimplification (Times(exp1, exp2)) = attemptRootSimplifcation(Times((doSimplification (attemptRootSimplifcation exp1)), (doSimplification(attemptRootSimplifcation exp2))))
+      | doSimplification (Plus(exp1, exp2)) = attemptRootSimplifcation(Plus((doSimplification (attemptRootSimplifcation exp1)), (doSimplification(attemptRootSimplifcation exp2))))
+      | doSimplification (Pow(exp, int)) = attemptRootSimplifcation(Pow(doSimplification(attemptRootSimplifcation exp),int));
+  in
+    doSimplification expression
+  end;
 
 
 (* Tests *) 

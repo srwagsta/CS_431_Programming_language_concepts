@@ -15,7 +15,6 @@ val eval = fn : exp -> (string * int) list -> int
 [autoloading done]
 val print = fn : exp -> string
 val deriv = fn : exp -> string -> exp
-val simp = fn : exp -> exp
 val simplify = fn : exp -> exp
 [autoloading]
 [library $smlnj/compiler/current.cm is stable]
