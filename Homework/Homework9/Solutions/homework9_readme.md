@@ -64,5 +64,25 @@ takes a list and return a sorted list in **increasing order**.
 takes a list and return a sorted list in **increasing order**.
 
     ```scala
-    def insertion_sort(lst: List[Int]): List[Int] =
+    def insertion_sort(initialList: List[Int]): List[Int] = {
+        def insert(element: Int, list: List[Int]): List[Int] ={
+          (element, list) match {
+            case (_, Nil) => List(element)
+            case (_, head::rest) =>
+              if(element > head) element::head::rest
+              else head::insert(element, rest)
+          }
+        }
+        def sort(sofar: List[Int], list: List[Int]): List[Int] = {
+          list match {
+            case Nil => sofar
+            case (element::rest) => insert(element, sort(sofar,rest))
+          }
+        }
+    
+        initialList match {
+          case Nil => Nil
+          case _ => sort(Nil, initialList)
+        }
+      }
     ```
