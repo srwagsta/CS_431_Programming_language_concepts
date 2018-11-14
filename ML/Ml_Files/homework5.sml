@@ -62,30 +62,34 @@ fun insertion_sort _ nil = nil
 insertion_sort (op >) [0, 5, 1, ~4, 9, 11];
 
 (* Question 4 *)
-fun quicksort (_, nil) = nil
-  | quicksort (_, [x]) = [x]
-  | quicksort (f, list) =
+fun quicksort _ nil = nil
+  | quicksort _ [a] = [a]
+  | quicksort f [a,b] = if f(a,b) then [a,b] else [b,a]
+  | quicksort f lst = 
   let
-    fun get (head::_, 1) = head
-      | get (_::rest, index) = get(rest, index-1);
-
-    val pivot = (get(list, 1) + get(list,(length list + 1) div 2) + get(list, length list) div 3)
-
-    fun split nil = ( nil, nil, nil )
-      | split (x :: remaining) =
+    fun get(a::_, 1) = a
+      | get(_::b, n) = get(b, n-1)
+    val len = length lst
+    val first = get(lst, 1)
+    val middle = get(lst, (len+1) div 2)
+    val last = get(lst, len)
+    val pivot = (first + middle + last) div 3
+    fun split nil = (nil, nil, nil)
+      | split (a::b) = 
       let
-        val ( lower, middle, upper ) = split remaining
+        val (lower, middle, upper) = split b
       in
-        if f( pivot, x )
-        then ( lower, middle, x::upper )
+        if pivot = a then 
+          (lower, a::middle, upper) 
         else 
-          if x = pivot
-          then (lower, x::middle, upper)
-          else (x::lower, middle, upper )
-      end;
-    val ( lower, middle, upper ) = split list
+          if f(pivot, a) then 
+            (lower, middle, a::upper) 
+          else 
+            (a::lower, middle, upper) 
+      end
+    val (lower, middle, upper) = split lst
   in
-    quicksort(f, lower) @ middle @ quicksort(f, upper)
-  end ;
+       (quicksort f lower) @ middle @ (quicksort f upper)
+  end;
 
 quicksort ((op >),[0, 5, 1, ~4, 9, 11]);

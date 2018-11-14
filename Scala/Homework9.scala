@@ -1,10 +1,31 @@
-object SortingFunctions {
+object Homework9 {
 
-  def merge_sort(lst: List[Int]): List[Int] = 0
+  def merge_sort(lst: List[Int]): List[Int] = {
+    def split (): (List[Int], List[Int]) = {
+      val cut = lst.length/2
 
-  def selection_sort(lst: List[Int]): List[Int] = 0
+      // TODO: Slice the lists and return the results
+      ( List.take (list,cut) , List.drop (list,cut) )
 
-  def insertion_sort(lst: List[Int]): List[Int] = 0
+
+    }
+
+    def merge(list1: List[Int], list2: List[Int]): List[Int] = {
+      0
+      // TODO: Implement this
+    }
+
+
+
+  }
+
+  def selection_sort(lst: List[Int]): List[Int] = {
+    0
+  }
+
+  def insertion_sort(lst: List[Int]): List[Int] = {
+
+  }
 
 
   def main(args: Array[String]) {
