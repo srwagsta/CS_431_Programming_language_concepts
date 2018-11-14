@@ -1,12 +1,15 @@
 object Homework9 {
 
+  /**
+    * Scala implementation of recursive merge sort using pattern matching
+    * @param An unsorted initial list of Ints
+    * @return A sorted list of the initial Int values in increasing order
+    */
   def merge_sort(initialList: List[Int]): List[Int] = {
-
     def split: (List[Int], List[Int]) = {
       val cut = initialList.length/2
       ( initialList take cut , initialList drop cut )
     }
-
     def merge(leftList: List[Int], rightList: List[Int]): List[Int] = {
       (leftList, rightList) match {
         case (Nil, _) => rightList
@@ -16,7 +19,6 @@ object Homework9 {
           else rightElement::merge(leftList, rightRemaining)
       }
     }
-
     initialList match{
       case Nil => Nil
       case x::Nil => x::Nil
@@ -26,9 +28,29 @@ object Homework9 {
     }
   }
 
-  def selection_sort(lst: List[Int]): List[Int] = {
-    0
+  /**
+    * Scala implementation of recursive selection sort using pattern matching
+    * @param An unsorted initial list of Ints
+    * @return A sorted list of the initial Int values in increasing order
+    */
+  def selection_sort(initialList: List[Int]): List[Int] = {
+    def select(selectList: List[Int]): List[Int] = {
+      selectList match {
+        case Nil => Nil
+        case (lastElement::Nil) => lastElement::Nil
+        case (firstElement::list) =>
+          val (testElement::remaining) = select(list)
+          if(testElement > firstElement) select(testElement::firstElement::remaining)
+          else firstElement::testElement::remaining
+      }
+    }
+    initialList match {
+      case Nil => Nil
+      case _ => select(initialList)
+    }
   }
+
+
 
 
 //

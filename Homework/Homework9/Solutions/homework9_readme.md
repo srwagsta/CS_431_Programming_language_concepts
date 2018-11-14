@@ -42,7 +42,22 @@ a list, and return a sorted list in **increasing order**.
 takes a list and return a sorted list in **increasing order**.
 
     ```scala
-    def selection_sort(lst: List[Int]): List[Int] =
+    def selection_sort(initialList: List[Int]): List[Int] = {
+        def select(selectList: List[Int]): List[Int] = {
+          selectList match {
+            case Nil => Nil
+            case (lastElement::Nil) => lastElement::Nil
+            case (firstElement::list) =>
+              val (testElement::remaining) = select(list)
+              if(testElement > firstElement) select(testElement::firstElement::remaining)
+              else firstElement::testElement::remaining
+          }
+        }
+        initialList match {
+          case Nil => Nil
+          case _ => select(initialList)
+        }
+      }
     ```
 
 3. Write a function `insertion_sort(lst: List[Int]): List[Int]` that
