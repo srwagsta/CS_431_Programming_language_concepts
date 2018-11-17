@@ -77,6 +77,21 @@ object Homework10
     }
   }
 
+  /**
+    * Add two integer vectors of the same size.
+    * @param vector1
+    * @param vector2
+    * @return A vector result of the addition operation
+    */
+  def vectorAdd(vector1: List[Int], vector2: List[Int]): List[Int] = {
+    (vector1, vector2) match {
+      case(Nil, Nil) => Nil
+      case(Nil, _) => vector2
+      case(_, Nil) => vector1
+      case(_, _) => vector1.zip(vector2).map((x: Int, y: Int) => x+y)
+    }
+
+  }
 
   def main(args: Array[String]) {
     val lst = List(5,4,11,2,3,1,0,9)
@@ -86,8 +101,8 @@ object Homework10
     println(merge_sort(_<_)(lst))
     println(selection_sort(_<_)(lst))
     println(insertion_sort(_<_)(lst))
-//    val v1 = List(1,2,3)
-//    val v2 = List(4,5,6)
+    val v1 = List(1,2,3)
+    val v2 = List(4,5,6)
 //    println(vectorAdd(v1, v2))
 //    println(svProduct(2, v1))
 //    val m1 = List(List(1,1), List(2,1), List(3,1))
