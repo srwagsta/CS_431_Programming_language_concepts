@@ -119,6 +119,15 @@ object Homework10
       .reduce(vectorAdd)
   }
 
+  /**
+    * multiple a m×n matrix with a n×k matrix to obtain a m×k matrix
+    * @param matrix1
+    * @param matrix2
+    * @return the resulting product matrix of type List[Int]
+    */
+  def matrixProduct(matrix1: List[List[Int]], matrix2: List[List[Int]]): List[List[Int]] = {
+    matrix1.map({row: List[Int] => vmProduct(row, matrix2)})
+  }
 
   def main(args: Array[String]) {
     val lst = List(5,4,11,2,3,1,0,9)
@@ -134,7 +143,7 @@ object Homework10
     println(svProduct(2, v1))
     val m1 = List(List(1,1), List(2,1), List(3,1))
     println(vmProduct(v1, m1))
-//    val m2 = List(List(1,2,3), List(1,1,1))
-//    println(matrixProduct(m2, m1))
+    val m2 = List(List(1,2,3), List(1,1,1))
+    println(matrixProduct(m2, m1))
   }
 }
