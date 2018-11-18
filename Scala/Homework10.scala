@@ -88,9 +88,8 @@ object Homework10
       case(Nil, Nil) => Nil
       case(Nil, _) => vector2
       case(_, Nil) => vector1
-      case(_, _) => vector1.zip(vector2).map((x: Int, y: Int) => x+y)
+      case(_, _) => vector1.zip(vector2).map({case(int1, int2)=> int1+int2})
     }
-
   }
 
   def main(args: Array[String]) {
@@ -103,7 +102,7 @@ object Homework10
     println(insertion_sort(_<_)(lst))
     val v1 = List(1,2,3)
     val v2 = List(4,5,6)
-//    println(vectorAdd(v1, v2))
+    println(vectorAdd(v1, v2))
 //    println(svProduct(2, v1))
 //    val m1 = List(List(1,1), List(2,1), List(3,1))
 //    println(vmProduct(v1, m1))
