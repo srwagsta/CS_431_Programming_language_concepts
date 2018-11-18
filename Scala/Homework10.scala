@@ -92,6 +92,14 @@ object Homework10
     }
   }
 
+  def svProduct(multInt: Int, intList:List[Int]): List[Int]= {
+    (multInt, intList) match{
+      case(_, Nil) => Nil
+      case(_, _) => intList.map((y: Int) => multInt*y)
+    }
+  }
+
+
   def main(args: Array[String]) {
     val lst = List(5,4,11,2,3,1,0,9)
     println(merge_sort(_>_)(lst))
@@ -103,7 +111,7 @@ object Homework10
     val v1 = List(1,2,3)
     val v2 = List(4,5,6)
     println(vectorAdd(v1, v2))
-//    println(svProduct(2, v1))
+    println(svProduct(2, v1))
 //    val m1 = List(List(1,1), List(2,1), List(3,1))
 //    println(vmProduct(v1, m1))
 //    val m2 = List(List(1,2,3), List(1,1,1))
