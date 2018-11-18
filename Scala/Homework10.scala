@@ -92,11 +92,31 @@ object Homework10
     }
   }
 
+  /**
+    * multiple an integer with an integer list
+    * @param multInt
+    * @param intList
+    * @return new List[Int] with each element matching the initial List elements multiplied by the Int value
+    */
   def svProduct(multInt: Int, intList:List[Int]): List[Int]= {
     (multInt, intList) match{
       case(_, Nil) => Nil
       case(_, _) => intList.map((y: Int) => multInt*y)
     }
+  }
+
+  /**
+    * Multiplies a row vector of size n with a matrix with n rows and m columns to produce
+    * a vector of size m
+    *
+    * @param vector
+    * @param matrix
+    * @return the resulting vector represented as a list
+    */
+  def vmProduct(vector: List[Int], matrix: List[List[Int]]): List[Int] ={
+    vector.zip(matrix)
+      .map({case(int:Int, list:List[Int])=>svProduct(int,list)})
+      .reduce(vectorAdd)
   }
 
 
@@ -112,8 +132,8 @@ object Homework10
     val v2 = List(4,5,6)
     println(vectorAdd(v1, v2))
     println(svProduct(2, v1))
-//    val m1 = List(List(1,1), List(2,1), List(3,1))
-//    println(vmProduct(v1, m1))
+    val m1 = List(List(1,1), List(2,1), List(3,1))
+    println(vmProduct(v1, m1))
 //    val m2 = List(List(1,2,3), List(1,1,1))
 //    println(matrixProduct(m2, m1))
   }
