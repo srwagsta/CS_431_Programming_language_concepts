@@ -1,9 +1,0 @@
-#!/bin/bash
-
-shopt -s extglob
-
-for file in /Solutions/*.md
-do
-
-  pandoc --latex-engine=xelatex -V geometry:margin=.5in  "$file" -s -o /Solutions/"${file//+(*\/|.*)}"_output.pdf
-done

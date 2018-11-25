@@ -1,0 +1,15 @@
+#!/bin/bash
+
+shopt -s extglob
+
+for directory in /Solutions/*
+do
+  for file in "$directory"/Solutions/*.md
+  do
+    if [  -f "$file" ]; then
+      echo INFO: Creating PDF Output for "$file"
+      pandoc --latex-engine=xelatex -V geometry:margin=.5in  "$file" -s -o /Output/"${file//+(*\/|.*)}"_output.pdf
+    fi
+  done
+
+done

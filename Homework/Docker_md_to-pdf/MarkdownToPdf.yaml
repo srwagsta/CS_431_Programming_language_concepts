@@ -1,16 +1,17 @@
 version: '3'
 
 services:
-  jison:
+  MarkdownToPdfBuilder:
     build:
       context: .
-      dockerfile: ./Jison/Dockerfile
-    image: jison
-    container_name: jison
+      dockerfile: ./Dockerfile
+    image: md-to-pdf
+    container_name: md-to-pdf
     networks:
       - primary
     volumes:
-      - ../Solutions:/Solutions
+      - ../:/Solutions
+      - ../PDF_Output:/Output
     command: /start
 
 networks:
