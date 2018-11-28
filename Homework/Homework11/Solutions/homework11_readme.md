@@ -75,6 +75,17 @@ and return the derivative. \
     For example, `e.deriv("x").toString` should return `"((((1 * y) + (x * 0)) * (x + 3)) + ((x * y) * (1 + 0)))"` 
     while `e1.deriv("x").toString` should return `"((4 * (x^3)) * 1)"`
 
+    ```scala
+    def deriv(dx: String): Exp ={
+        this match{
+          case Const(_) => Const(0)
+          case Var (variable) => if (variable.equals(dx)) Const(1) else Const(0)
+          case Plus (exp1, exp2) => Plus(exp1.deriv(dx), exp2.deriv(dx))
+          case Times (exp1, exp2) => Plus(Times(exp1.deriv(dx), exp2), Times(exp1, exp2.deriv(dx)))
+          case Pow (exp1, int) => Times(Times(Const(int), Pow(exp1, int-1)), exp1.deriv(dx))
+        }
+    }
+    ```
 
 3. Implement a method `simplify: Exp` in `Exp` class to simplify this expression as much as possible. \
 For example, `e.deriv("x").simplify.toString` should return `"((y * (x + 3)) + (x * y))"` while 
@@ -82,7 +93,32 @@ For example, `e.deriv("x").simplify.toString` should return `"((y * (x + 3)) + (
 
     Also, if `val e2 = Pow (Plus (Var("x"), Const(0)), 2)`, then `e2.toString` should return `"((x + 0)^2)"` while 
     `e2.simplify.toString` should return `"(x^2)"`.
-    
+
     *Hint: for this question, you may want to define a helper method `simp` to
-    simplify obvious expressions. `simp(e × 0)` = `0`, `simp(e × 1)` = `e`, `simp(e + 0)` = `e`, etc. The method simplify 
-    should call `simp` after recursively calls itself on components of `plus`, `times`, and `pow` expressions.*
+    simplify obvious expressions. `simp(e × 0)` = `0`, `simp(e × 1)` = `e`, `simp(e + 0)` = `e`, etc. The method simplify should call `simp` after recursively calls itself on components of `plus`, `times`, and `pow` expressions.*
+
+    ```scala
+    protected def attemptRootSimplification: Exp ={
+        this match {
+        case Times(Const(1), x) => x
+        case Times(x, Const(1)) => x
+        case Times(Const(0), _) => Const(0)
+        case Times(_, Const(0)) => Const(0)
+        case Plus(Const(0), x) => x
+        case Plus(x, Const(0)) => x
+        case Pow(x, 1) => x
+        case Pow(_, 0) => Const(1)
+        case _ => this
+        }
+    }
+
+    def simplify: Exp ={
+        this match{
+        case Const(x) => Const(x)
+        case Var(x) => Var(x)
+        case Times(exp1, exp2) => Times(exp1.simplify, exp2.simplify).attemptRootSimplification
+        case Plus(exp1, exp2) => Plus(exp1.simplify, exp2.simplify).attemptRootSimplification
+        case Pow(exp, int) => Pow(exp.simplify,int).attemptRootSimplification
+        }
+    }
+    ```
