@@ -3,7 +3,7 @@ package hwk12
 
 trait Tree[X <: Ordered[X]] {
   def contains(e: X): Boolean 
-  def insert(e: X) = ins(e) match {
+  def insert(e: X): Tree[X] = ins(e) match {
     case FourNode(t1, a, t2, b, t3, c, t4) => TwoNode(TwoNode(t1, a, t2), b, TwoNode(t3, c, t4))
     case n => n 
   }
@@ -11,16 +11,37 @@ trait Tree[X <: Ordered[X]] {
   def height: Int
 }
 
+// TODO: Make sure that the logic for the height methods will actually work
+// Will the next level always be added to the ar right tree?
+// Can we count on checking that tree when they are looking for height?
+// Do we a tually need to be on the far left tree when they are looking for height? or just continue moving right?
+
 case class Leaf[X <: Ordered[X]]() extends Tree[X] {
-  // TODO
+  override def contains(e: X): Boolean = false
+
+  // TODO: Implement this ins
+  override def ins(e: X): Tree[X] = ???
+
+  override def height: Int = 0
+
 }
 
 case class TwoNode[X <: Ordered[X]](left: Tree[X], x:X, right: Tree[X]) extends Tree[X] {
-  // TODO
+  override def contains(e: X): Boolean = e.equals(x) || left.contains(e) || right.contains(e)
+
+  // TODO: Implement this ins
+  override def ins(e: X): Tree[X] = ???
+
+  override def height: Int = 1 + left.height
 }
 
 case class ThreeNode[X <: Ordered[X]](left: Tree[X], x1:X, middle:Tree[X], x2:X, right: Tree[X]) extends Tree[X] {
-  // TODO
+  override def contains(e: X): Boolean = e.equals(x1) || e.equals(x2) || left.contains(e) || middle.contains(e) || right.contains(e)
+
+  // TODO: Implement this ins
+  override def ins(e: X): Tree[X] = ???
+
+  override def height: Int = 1 + left.height
 }
 
 case class FourNode[X<:Ordered[X]](t1:Tree[X], a:X, t2:Tree[X], b:X, t3:Tree[X], c:X, t4:Tree[X]) extends Tree[X] {
