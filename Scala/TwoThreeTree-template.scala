@@ -11,82 +11,106 @@ trait Tree[X <: Ordered[X]] {
   def height: Int
 }
 
-// TODO: Make sure that the logic for the height methods will actually work
-// Will the next level always be added to the ar right tree?
-// Can we count on checking that tree when they are looking for height?
-// Do we a tually need to be on the far left tree when they are looking for height? or just continue moving right?
-
 case class Leaf[X <: Ordered[X]]() extends Tree[X] {
-  override def contains(e: X): Boolean = false
+  def contains(e: X): Boolean = false
 
-  // TODO: Logic check
-  override def ins(e: X): Tree[X] = new TwoNode[X](Leaf(), e, Leaf())
+  def ins(e: X): Tree[X] = new TwoNode[X](Leaf(), e, Leaf())
 
-  override def height: Int = 0
+  def height: Int = 0
+
+  override def toString :String = "L"
 
 }
 
 case class TwoNode[X <: Ordered[X]](left: Tree[X], x:X, right: Tree[X]) extends Tree[X] {
-  override def contains(e: X): Boolean = e.equals(x) || left.contains(e) || right.contains(e)
+  def contains(e: X): Boolean =
+    if (e < x ) left.contains(e)
+    else if (e > x) right.contains(e)
+    else true
 
-  // TODO: Logic check?
-  override def ins(e: X): Tree[X] = {
-    this match{
-      case (Leaf(_), _, Leaf(_)) => ThreeNode(left, x, Leaf(), e, right)
+
+  def ins(e: X): Tree[X] =
+    this match {
+      case TwoNode(Leaf(), _, Leaf()) =>
+        if (e < x) ThreeNode(left, e, Leaf(), x, right)
+        else ThreeNode(left, x, Leaf(), e, right)
       case _ =>
-        x.compareTo(e) match {
-          case comp if comp < 0 => left.ins(e)
-          case comp if comp > 0 => right.ins(e)
-          case _ => nil //... well fuck
-      }
+        if (e < x)
+          left.ins(e) match {
+            case FourNode(leftTree, data1, middle1, data2, middle2, data3, rightTree) => ThreeNode(TwoNode(leftTree, data1, middle1), data2, TwoNode(middle2, data3, rightTree), x, right)
+            case newLeft => TwoNode(newLeft, x, right)
+          }
+        right.ins(e) match {
+          case FourNode(leftTree, data1, middle1, data2, middle2, data3, rightTree) => ThreeNode(left, x, TwoNode(leftTree, data1, middle1), data2, TwoNode(middle2, data3, rightTree))
+          case newRight => TwoNode(left, x, newRight)
+        }
     }
 
-      // TODO: What about the order?? What happens when we need to insert in the middle of the tree?
-      // .... Sounds fuck to me? ... best just leave it that way ...
-    
 
+  def height: Int = 1 + left.height
 
-    // TODO: Ok, here's how we do this. Lets check if we are dealing with a terminal node
-    // (A node of only leaves), if so we return a ThreeNode with e and all Leaves. Else Traverse farther down
-
-  }
-
-  override def height: Int = 1 + left.height
+  override def toString :String = s"($left, $x, $right)"
 }
 
 case class ThreeNode[X <: Ordered[X]](left: Tree[X], x1:X, middle:Tree[X], x2:X, right: Tree[X]) extends Tree[X] {
-  override def contains(e: X): Boolean = e.equals(x1) || e.equals(x2) || left.contains(e) || middle.contains(e) || right.contains(e)
+  def contains(e: X): Boolean =
+    if (e < x1) left.contains(e)
+    else if (e > x1){
+      if (e < x2) middle.contains(e)
+      else if (e > x2) right.contains(e)
+      else true
+    }
+    else true
 
-  // TODO: Implement this ins
-  override def ins(e: X): Tree[X] = {
-    this match{
-      case (Leaf(_), _, Leaf(_), _, Leaf(_)) => FourNode(left, x1, middle, e, Leaf(), x2, right)
+  def ins(e: X): Tree[X] =
+    this match {
+      case ThreeNode(Leaf(), _, Leaf(), _, Leaf()) =>
+        if (e < x1) FourNode (Leaf(), e, left, x1, middle, x2, right)
+        else if (x2 < e) FourNode (Leaf(), x1, left, x2, middle, e, right)
+        else FourNode (Leaf(), x1, left, e, middle, x2, right)
+
       case _ =>
-        x1.compareTo(e) match {
-          case comp if comp < 0 => left.ins(e)
-          case comp if comp > 0 => right.ins(e)
-          case _ => nil //... well fuck
+        if (e < x1) left.ins(e) match {
+          case FourNode(leftTree, data1, middle1, data2, middle2, data3, rightTree) =>
+            FourNode(TwoNode(leftTree, data1, middle1), data2, TwoNode(middle2, data3, rightTree), x1, middle, x2, right)
+          case newLeft => ThreeNode(newLeft, x1, middle, x2, right)
+        }
+        else if (x2 < e) right.ins(e) match {
+          case FourNode(leftTree, data1, middle1, data2, middle2, data3, rightTree) =>
+            FourNode(left, x1, middle, x2, TwoNode(leftTree, data1, middle1), data2, TwoNode(middle2, data3, rightTree))
+          case newRight => ThreeNode(left, x1, middle, x2, newRight)
+        }
+        else middle.ins(e) match {
+          case FourNode(leftTree, data1, middle1, data2, middle2, data3, rightTree) =>
+            FourNode(left, x1, TwoNode(leftTree, data1, middle1), data2, TwoNode(middle2, data3, rightTree), x2, right)
+          case newMiddle => ThreeNode(left, x1, newMiddle, x2, right)
         }
     }
-  }
 
-  override def height: Int = 1 + left.height
+
+  def height: Int = 1 + left.height
+
+  override def toString :String = s"($left, $x1, $middle, $x2, $right)"
 }
 
 case class FourNode[X<:Ordered[X]](t1:Tree[X], a:X, t2:Tree[X], b:X, t3:Tree[X], c:X, t4:Tree[X]) extends Tree[X] {
   def contains(e: X): Boolean = throw new Exception()
   def ins(e: X): Tree[X] = throw new Exception()
   def height: Int = throw new Exception()
+  override def toString :String = throw new Exception()
 }
  
 case class OrderedInt(i: Int) extends Ordered[OrderedInt] {
   def compare(that: OrderedInt) = i - that.i
-  override def toString = i.toString
+  override def toString :String = i.toString
 }
 case class OrderedChar(c: Char) extends Ordered[OrderedChar] {
   def compare(that: OrderedChar) = c - that.c
-  override def toString = c.toString
+  override def toString :String = c.toString
 }
+
+
+// Test Driver
 
 object TwoThreeTree {
     def main(arg: Array[String]) {
