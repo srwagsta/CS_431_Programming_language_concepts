@@ -19,8 +19,8 @@ trait Tree[X <: Ordered[X]] {
 case class Leaf[X <: Ordered[X]]() extends Tree[X] {
   override def contains(e: X): Boolean = false
 
-  // TODO: Implement this ins
-  override def ins(e: X): Tree[X] = ???
+  // TODO: Logic check
+  override def ins(e: X): Tree[X] = new TwoNode[X](Leaf(), e, Leaf())
 
   override def height: Int = 0
 
@@ -29,8 +29,27 @@ case class Leaf[X <: Ordered[X]]() extends Tree[X] {
 case class TwoNode[X <: Ordered[X]](left: Tree[X], x:X, right: Tree[X]) extends Tree[X] {
   override def contains(e: X): Boolean = e.equals(x) || left.contains(e) || right.contains(e)
 
-  // TODO: Implement this ins
-  override def ins(e: X): Tree[X] = ???
+  // TODO: Logic check?
+  override def ins(e: X): Tree[X] = {
+    this match{
+      case (Leaf(_), _, Leaf(_)) => ThreeNode(left, x, Leaf(), e, right)
+      case _ =>
+        x.compareTo(e) match {
+          case comp if comp < 0 => left.ins(e)
+          case comp if comp > 0 => right.ins(e)
+          case _ => nil //... well fuck
+      }
+    }
+
+      // TODO: What about the order?? What happens when we need to insert in the middle of the tree?
+      // .... Sounds fuck to me? ... best just leave it that way ...
+    
+
+
+    // TODO: Ok, here's how we do this. Lets check if we are dealing with a terminal node
+    // (A node of only leaves), if so we return a ThreeNode with e and all Leaves. Else Traverse farther down
+
+  }
 
   override def height: Int = 1 + left.height
 }
@@ -39,7 +58,17 @@ case class ThreeNode[X <: Ordered[X]](left: Tree[X], x1:X, middle:Tree[X], x2:X,
   override def contains(e: X): Boolean = e.equals(x1) || e.equals(x2) || left.contains(e) || middle.contains(e) || right.contains(e)
 
   // TODO: Implement this ins
-  override def ins(e: X): Tree[X] = ???
+  override def ins(e: X): Tree[X] = {
+    this match{
+      case (Leaf(_), _, Leaf(_), _, Leaf(_)) => FourNode(left, x1, middle, e, Leaf(), x2, right)
+      case _ =>
+        x1.compareTo(e) match {
+          case comp if comp < 0 => left.ins(e)
+          case comp if comp > 0 => right.ins(e)
+          case _ => nil //... well fuck
+        }
+    }
+  }
 
   override def height: Int = 1 + left.height
 }
